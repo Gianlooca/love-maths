@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     runGame('addition');
 
-})
+});
 
 /**
  * The main game "loop", called when the script is first loaded
@@ -29,10 +29,12 @@ function runGame(gameType) {
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
-    if (gameType === "addition" ) {
-        displayAddictionQuestion(num1, num2)
+    if (gameType === "addition") {
+        displayAdditionQuestion(num1, num2);
     } else if (gameType === "multiply") {
-        displayMultiplyQuestion(num1, num2)
+        displayMultiplyQuestion(num1, num2);
+    } else if (gameType === "subtract") {
+        displaySubtractQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -40,7 +42,7 @@ function runGame(gameType) {
 }
 
 /**
- * Checks the answer against the first the first element in
+ * Checks the answer against the first element in
  * the returned calculateCorrectAnswer array
  */
 function checkAnswer() {
@@ -70,9 +72,11 @@ function calculateCorrectAnswer() {
     let operator = document.getElementById('operator').innerText;
     
     if (operator === '+') {
-        return [operand1 + operand2, 'addition']
+        return [operand1 + operand2, 'addition'];
     } else if (operator === 'x') {
-        return [operand1 * operand2, 'multiply']
+        return [operand1 * operand2, 'multiply'];
+    } else if (operator === '-') {
+        return [operand1 - operand2, 'subtract'];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
@@ -80,7 +84,7 @@ function calculateCorrectAnswer() {
 }
 
 /**
- * Gets the current score by the DOM and increments it by 1
+ * Gets the current score from the DOM and increments it by 1
  */
 function incrementScore() {
 
@@ -90,7 +94,7 @@ function incrementScore() {
 }
 
 /**
- * Gets the tally of incorrect answers by the DOM and increments it by 1
+ * Gets the current tally of incorrect answers from the DOM and increments it by 1
  */
 function incrementWrongAnswer() {
 
@@ -99,7 +103,7 @@ function incrementWrongAnswer() {
 
 }
 
-function displayAddictionQuestion(operand1, operand2) {
+function displayAdditionQuestion(operand1, operand2) {
 
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
@@ -108,6 +112,10 @@ function displayAddictionQuestion(operand1, operand2) {
 }
 
 function displaySubtractQuestion() {
+
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById('operator').textContent = '-';
 
 }
 
